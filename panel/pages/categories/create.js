@@ -45,7 +45,7 @@ const Index = () => {
               values={form.values.name}
             />
             <input
-              className='p-2 ml-2 font-semibold rounded shadow-md outline-none focus:ring-2 focus:ring-'
+              className='p-2 ml-2 font-semibold rounded shadow-md outline-none focus:ring-2 focus:ring-blue-600'
               type='text'
               name='slug'
               onChange={form.handleChange}
