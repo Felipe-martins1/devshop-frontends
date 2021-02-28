@@ -1,6 +1,7 @@
 import React, { Children, useState } from 'react'
 import Menu from '../Menu'
 import { MdLabel, MdHome } from 'react-icons/md'
+import { IoClose } from 'react-icons/io5'
 
 const Layout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -15,12 +16,6 @@ const Layout = ({ children }) => {
   return (
     <div>
       <div className='flex h-screen bg-gray-200'>
-        <div
-          className={sidebarOpen ? 'block' : 'hidden'}
-          onClick={close}
-          className='fixed z-20 inset-0 bg-black opacity-50 transition-opacity lg:hidden'
-        ></div>
-
         <div
           className={
             'fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0 ' +
@@ -38,6 +33,10 @@ const Layout = ({ children }) => {
               Categorias
             </Menu.NavItem>
           </Menu.Nav>
+          <IoClose
+            onClick={close}
+            className='text-white text-4xl m-auto mt-5 lg:hidden'
+          ></IoClose>
         </div>
         <div className='flex-1 flex flex-col overflow-hidden'>
           <header className='flex justify-between items-center py-4 px-6 bg-white border-b-4 border-indigo-600'>
