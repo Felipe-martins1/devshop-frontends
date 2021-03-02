@@ -11,7 +11,9 @@ const Card = ({ children }) => {
 }
 const CardIcon = ({ children }) => {
   return (
-    <div className='p-3 rounded-full bg-pink-600 bg-opacity-75'>{children}</div>
+    <div className='p-3 rounded-full bg-indigo-600 bg-opacity-75'>
+      {children}
+    </div>
   )
 }
 const CardData = ({ children }) => {
@@ -21,7 +23,7 @@ const CardTitle = ({ children }) => {
   return <h4 className='text-2xl font-semibold text-gray-700'>{children}</h4>
 }
 const CardDescription = ({ children }) => {
-  return <div className='text-gray-500'>{children}</div>
+  return <div className='font-semibold text-gray-500'>{children}</div>
 }
 Card.Icon = CardIcon
 Card.Data = CardData
