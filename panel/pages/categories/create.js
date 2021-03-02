@@ -1,17 +1,17 @@
 import React from 'react'
-import Card from '../../components/Card'
 import Layout from '../../components/Layout'
 import Title from '../../components/Title'
-import { useQuery } from '../../lib/graphql'
-import { BsClipboardData } from 'react-icons/bs'
-import { FiEdit2 } from 'react-icons/fi'
-import Table from '../../components/Table'
+import { useMutation } from '../../lib/graphql'
 import { useFormik } from 'formik'
+import { useRouter } from 'next/router'
 
-const query = {
+const mutation = {
   query: `
-    query{
-      getAllCategories{
+    mutation createCategory($name: String!, $slug: String!){
+      createCategory (input:{
+        name: $name,
+        slug: $slug
+      }){
         id
         name
         slug
@@ -20,14 +20,16 @@ const query = {
   `
 }
 const Index = () => {
-  const { data, error } = useQuery(query)
+  const router = useRouter()
+  const [data, createCategory] = useMutation(mutation)
   const form = useFormik({
     initialValues: {
       name: '',
       slug: ''
     },
-    onSubmit: values => {
-      console.log(values)
+    onSubmit: async values => {
+      await createCategory(values)
+      router.push('/categories')
     }
   })
   return (
