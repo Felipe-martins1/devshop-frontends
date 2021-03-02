@@ -7,8 +7,7 @@ import { BsClipboardData } from 'react-icons/bs'
 import { FiEdit2 } from 'react-icons/fi'
 import Table from '../../components/Table'
 
-const query = {
-  query: `
+const GET_ALL_CATEGORIES = `
     query{
       getAllCategories{
         id
@@ -17,9 +16,9 @@ const query = {
     }
   }
   `
-}
+
 const Index = () => {
-  const { data, error } = useQuery(query)
+  const { data, error } = useQuery(GET_ALL_CATEGORIES)
   return (
     <Layout>
       <Title>Gerenciar categorias</Title>

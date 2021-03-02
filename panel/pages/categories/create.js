@@ -5,8 +5,7 @@ import { useMutation } from '../../lib/graphql'
 import { useFormik } from 'formik'
 import { useRouter } from 'next/router'
 
-const mutation = {
-  query: `
+const CREATE_CATEGORY = `
     mutation createCategory($name: String!, $slug: String!){
       createCategory (input:{
         name: $name,
@@ -18,10 +17,9 @@ const mutation = {
     }
   }
   `
-}
 const Index = () => {
   const router = useRouter()
-  const [data, createCategory] = useMutation(mutation)
+  const [data, createCategory] = useMutation(CREATE_CATEGORY)
   const form = useFormik({
     initialValues: {
       name: '',
