@@ -8,6 +8,7 @@ import { FiEdit2 } from 'react-icons/fi'
 import Table from '../../components/Table'
 
 import Link from 'next/link'
+import Alert from '../../components/Alert'
 
 //Definindo Mutation
 const DELETE_CATEGORY = `
@@ -109,12 +110,9 @@ const Index = () => {
                     </Table.Tr>
                   ))}
                   {data.getAllCategories.length === 0 && (
-                    <div
-                      className='bg-opacity-40 bg-red-500 border-l-4 border-red-700 text-red-700 p-7 text-xl'
-                      role='alert'
-                    >
+                    <Alert>
                       <p>Nenhuma categoria criada!</p>
-                    </div>
+                    </Alert>
                   )}
                 </Table.Body>
               </Table>
