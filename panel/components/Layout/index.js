@@ -32,6 +32,9 @@ const Layout = ({ children }) => {
             <Menu.NavItem href='/categories' Icon={MdLabel}>
               Categorias
             </Menu.NavItem>
+            <Menu.NavItem href='/products' Icon={MdLabel}>
+              Produtos
+            </Menu.NavItem>
           </Menu.Nav>
           <IoClose
             onClick={close}
