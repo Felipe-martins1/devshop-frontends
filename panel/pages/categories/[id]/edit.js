@@ -10,7 +10,7 @@ import { useMutation, useQuery } from '../../../lib/graphql'
 const UPDATE_CATEGORY = `
     mutation updateCategory($id: String! $name: String!, $slug: String!){
       updateCategory (input:{
-        id: $id
+        id: $id,
         name: $name,
         slug: $slug
       }){
@@ -29,7 +29,6 @@ const Edit = () => {
   const { data } = useQuery(`
   query{
     getCategoryById(id: "${router.query.id}"){
-      id
       name
       slug
     }

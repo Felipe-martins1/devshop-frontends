@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import Layout from '../../components/Layout'
 import Title from '../../components/Title'
@@ -69,6 +69,11 @@ const Index = () => {
     })
   }
 
+  useEffect(() => {
+    if (categories && categories.getAllCategories) {
+      form.setFieldValue('category', categories.getAllCategories[0].id)
+    }
+  }, [categories])
   return (
     <Layout>
       <Title>Criar novo produto</Title>
@@ -87,7 +92,7 @@ const Index = () => {
                   value={form.values.name}
                 />
                 <Input
-                  label='Descrição da categoria'
+                  label='Descrição do produto'
                   placeholder='Preencha com a descrição do produto'
                   type='text'
                   name='description'
@@ -95,7 +100,7 @@ const Index = () => {
                   value={form.values.description}
                 />
                 <Input
-                  label='Slug da categoria'
+                  label='Slug do produto'
                   placeholder='Preencha com o slug do produto'
                   type='text'
                   name='slug'
