@@ -41,7 +41,7 @@ const Index = () => {
   }
   return (
     <Layout>
-      <Title>Gerenciar categorias</Title>
+      <Title>Gerenciar produtos</Title>
       <div className='mt-4'>
         <div className='flex flex-wrap -mx-6'>
           <Card>

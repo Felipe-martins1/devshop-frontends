@@ -48,8 +48,11 @@ const Edit = () => {
         ...values,
         id: router.query.id
       }
-      await updateCategory(category)
-      router.push('/categories')
+      const data = await updateCategory(category)
+      if (data && !data.errors) {
+        //Redirecionando
+        router.push('/categories')
+      }
     }
   })
 
@@ -66,6 +69,11 @@ const Edit = () => {
       <div className='flex flex-col mt-8'>
         <div className='-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8'>
           <div className='align-middle inline-block min-w-full shadow bg-white overflow-hidden sm:rounded-lg border-b border-gray-200 p-12'>
+            {updatedData && !!updatedData.errors && (
+              <p className='mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative'>
+                Ocorreu um erro inesperado.
+              </p>
+            )}
             <form onSubmit={form.handleSubmit}>
               <div class='flex flex-wrap -mx-3 mb-6'>
                 <Input
