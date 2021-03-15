@@ -6,7 +6,11 @@ import Input from '../../../components/Input'
 import Layout from '../../../components/Layout'
 import Select from '../../../components/Select'
 import Title from '../../../components/Title'
-import { useMutation, useQuery } from '../../../lib/graphql'
+import { useMutation, useQuery, fetcher } from '../../../lib/graphql'
+
+import * as Yup from 'yup'
+
+let id = ''
 
 const UPDATE_PRODUCT = `
     mutation updateProduct($id: String! $name: String!, $slug: String!, $description: String!, $category: String!){
@@ -34,9 +38,50 @@ const GET_ALL_CATEGORIES = `
 }
 `
 
+const ProductSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, 'Por favor, informe um nome com no mínimo 3 caracteres.')
+    .required('Por favor, informe um nome.'),
+
+  slug: Yup.string()
+    .min(3, 'Por favor, informe um slug com no mínimo 3 caracteres')
+    .required('Por favor, informe um slug')
+    .test(
+      'is-unique',
+      'Por favor, utilize outro slug. Este já está em uso.',
+      async value => {
+        const ret = await fetcher(
+          JSON.stringify({
+            query: `
+            query{
+              getProductBySlug(slug:"${value}"){
+                id
+              }
+            }
+          `
+          })
+        )
+        if (ret.errors) {
+          return true
+        }
+        if (ret.data.getProductBySlug.id === id) {
+          return true
+        }
+        return false
+      }
+    ),
+  description: Yup.string()
+    .min(20, 'Por favor, informe uma descrição com no mínimo 20 caracteres.')
+    .required('Por favor, informe uma descrição.'),
+  category: Yup.string()
+    .min(1, 'Por favor, selecione uma categoria.')
+    .required('Por favor, selecione uma categoria')
+})
+
 const Edit = () => {
   //Iniciando o router
   const router = useRouter()
+  id = router.query.id
 
   //Buscando dados do servidor
   const { data } = useQuery(`
@@ -55,9 +100,11 @@ const Edit = () => {
   //Criando form utilizando Formik
   const form = useFormik({
     initialValues: {
-      name: '',
-      slug: ''
+      name: '---',
+      slug: '---',
+      description: '--------------------'
     },
+    validationSchema: ProductSchema,
     onSubmit: async values => {
       const product = {
         ...values,
@@ -110,6 +157,7 @@ const Edit = () => {
                   name='name'
                   onChange={form.handleChange}
                   value={form.values.name}
+                  errorMessage={form.errors.name}
                 />
                 <Input
                   label='Descrição do produto'
@@ -118,6 +166,7 @@ const Edit = () => {
                   name='description'
                   onChange={form.handleChange}
                   value={form.values.description}
+                  errorMessage={form.errors.description}
                 />
                 <Input
                   label='Slug do produto'
@@ -127,6 +176,7 @@ const Edit = () => {
                   onChange={form.handleChange}
                   value={form.values.slug}
                   helpText='Slug é utilizado para URLs amigáveis'
+                  errorMessage={form.errors.slug}
                 />
                 <Select
                   label='Selecione a categoria'
@@ -134,6 +184,8 @@ const Edit = () => {
                   onChange={form.handleChange}
                   value={form.values.category}
                   options={options}
+                  errorMessage={form.errors.category}
+                  initial={{ id: '', label: 'Selecione...' }}
                 />
               </div>
               <Button type='submit'>Salvar</Button>

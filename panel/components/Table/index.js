@@ -23,7 +23,7 @@ const TableBody = ({ children }) => {
 }
 const TableTr = ({ children }) => <tr>{children}</tr>
 const TableTd = ({ children }) => (
-  <td className='px-6 py-4 whitespace-no-wrap border-b border-gray-200'>
+  <td className='max-w-0 px-6 py-4 whitespace-no-wrap border-b border-gray-200'>
     {children}
   </td>
 )

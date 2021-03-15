@@ -73,18 +73,13 @@ const Index = () => {
                   {data.getAllCategories.map(item => (
                     <Table.Tr key={item.id}>
                       <Table.Td>
-                        <div className='flex items-center'>
-                          <div>
-                            <div className='leading-5 font-semibold text-gray-900'></div>
-                            <div className='leading-5 font-semibold text-gray-900'>
-                              {item.name}
-                            </div>
-                          </div>
+                        <div className='truncate leading-5 font-semibold text-gray-900'>
+                          {item.name}
                         </div>
                       </Table.Td>
 
                       <Table.Td>
-                        <div className='leading-5 font-semibold text-gray-500'>
+                        <div className='truncate leading-5 font-semibold text-gray-500'>
                           {item.slug}
                         </div>
                       </Table.Td>

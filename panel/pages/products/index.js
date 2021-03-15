@@ -67,7 +67,6 @@ const Index = () => {
                   <Table.Head>
                     <Table.Th>Name</Table.Th>
                     <Table.Th>Description</Table.Th>
-                    <Table.Th>Slug</Table.Th>
                     <Table.Th></Table.Th>
                   </Table.Head>
                 )}
@@ -77,23 +76,19 @@ const Index = () => {
                       <Table.Td>
                         <div className='flex items-center'>
                           <div>
-                            <div className='leading-5 font-semibold text-gray-900'></div>
-                            <div className='leading-5 font-semibold text-gray-900'>
+                            <div className='truncate max-w-xs font-semibold text-gray-900'>
                               {item.name}
+                            </div>
+                            <div className='truncate max-w-xs leading-5 font-semibold text-gray-500'>
+                              {item.slug}
                             </div>
                           </div>
                         </div>
                       </Table.Td>
 
                       <Table.Td>
-                        <div className='leading-5 font-semibold text-gray-500'>
+                        <div className='truncate font-semibold text-gray-500'>
                           {item.description}
-                        </div>
-                      </Table.Td>
-
-                      <Table.Td>
-                        <div className='leading-5 font-semibold text-gray-500'>
-                          {item.slug}
                         </div>
                       </Table.Td>
 
